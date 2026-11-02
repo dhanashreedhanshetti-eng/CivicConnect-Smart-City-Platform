@@ -118,6 +118,13 @@ Make sure your MongoDB server is running and the connection settings are configu
 
 ### 8. Run the Application
 
+### Home Dashboard
+
+The main dashboard provides an overview of the platform, complaint statistics,
+and quick navigation to complaint registration and tracking.
+
+![CivicConnect Home Dashboard](screenshots/home-dashboard.png)
+
 ```bash
 python app.py
 ```
