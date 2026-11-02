@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Track Complaint | CivicConnect{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">CITIZEN SERVICES / TRACKING</p><h1>Track your complaint</h1><p>Enter the full complaint ID you received after submitting.</p></div>
+<form class="track-search" method="post" action="{{ url_for('track') }}"><input name="complaint_id" required placeholder="Paste complaint ID (MongoDB ObjectId)"><button class="btn primary">Track →</button></form>
+{% if error %}<div class="flash error">{{ error }}</div>{% endif %}
+{% if complaint %}
+<section class="detail-card">
+  <div class="detail-top"><div><p class="eyebrow">COMPLAINT ID</p><code>{{ complaint.id_text }}</code><h2>{{ complaint.title }}</h2></div><span class="status {{ complaint.status|lower|replace(' ', '-') }}">{{ complaint.status }}</span></div>
+  <p>{{ complaint.description }}</p>
+  <div class="detail-grid"><div><small>Citizen</small><strong>{{ complaint.citizen_name }}</strong></div><div><small>Category</small><strong>{{ complaint.category_name }}</strong></div><div><small>Assigned department</small><strong>{{ complaint.department_name }}</strong></div><div><small>Priority</small><strong>{{ complaint.priority }}</strong></div><div><small>Location</small><strong>{{ complaint.location.address }}</strong></div><div><small>Created</small><strong>{{ complaint.created_at.strftime('%d %b %Y, %I:%M %p') if complaint.created_at else '—' }}</strong></div></div>
+</section>
+<section class="recent"><h2>Status history</h2>
+  {% if timeline %}<div class="timeline">{% for item in timeline %}<div class="timeline-item"><span class="timeline-dot"></span><div><strong>{{ item.status }}</strong><p>{{ item.remarks }}</p><small>{{ item.timestamp_text }}</small></div></div>{% endfor %}</div>{% else %}<p>No status updates yet.</p>{% endif %}
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}File a Complaint | CivicConnect{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">CITIZEN SERVICES / NEW REQUEST</p><h1>File a complaint</h1><p>Tell us what needs attention. Fields marked * are required.</p></div>
+<form class="form-card" method="post">
+  <h2>Citizen details</h2>
+  <div class="form-grid">
+    <label>Full name *<input name="full_name" required placeholder="e.g. Aditi Patil"></label>
+    <label>Email address *<input name="email" type="email" required placeholder="you@example.com"></label>
+    <label>Phone number *<input name="phone" required pattern="[0-9+\-\s]{7,18}" placeholder="Mobile number"></label>
+    <label class="span-2">Issue location / address *<input name="address" required placeholder="Street, area, landmark"></label>
+  </div>
+  <hr><h2>Complaint details</h2>
+  <div class="form-grid">
+    <label class="span-2">Complaint title *<input name="title" required maxlength="120" placeholder="e.g. Pothole near the bus stop"></label>
+    <label>Category *
+      <select name="category_id" required><option value="">Select a category</option>{% for cat in categories %}<option value="{{ cat._id }}">{{ cat.category_name }}</option>{% endfor %}</select>
+    </label>
+    <label>Priority<select name="priority"><option>Low</option><option selected>Medium</option><option>High</option></select></label>
+    <label class="span-2">Description *<textarea name="description" required rows="5" placeholder="Explain the problem and when you noticed it."></textarea></label>
+  </div>
+  <p class="notice">Demo note: this classroom version uses email to find an existing citizen record. It does not provide secure citizen login.</p>
+  <button class="btn primary" type="submit">Submit complaint →</button>
+</form>
+{% endblock %}

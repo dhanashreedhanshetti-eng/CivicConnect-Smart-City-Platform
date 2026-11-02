@@ -1,0 +1,31 @@
+{
+  "citizens": {
+    "full_name": "Aditi Patil",
+    "email": "aditi@example.com",
+    "phone": "9876543210",
+    "address": "Shivaji Nagar, Pune",
+    "password_hash": "hashed-password-not-plain-text",
+    "created_at": "2026-10-29T10:00:00Z"
+  },
+  "complaints": {
+    "citizen_id": "ObjectId reference to citizens",
+    "category_id": "ObjectId reference to categories",
+    "department_id": "ObjectId reference to departments",
+    "title": "Pothole near bus stop",
+    "description": "A large pothole is causing traffic issues.",
+    "location": {
+      "address": "Shivaji Nagar bus stop, Pune"
+    },
+    "status": "Submitted",
+    "priority": "High",
+    "created_at": "2026-10-29T10:05:00Z",
+    "updated_at": "2026-10-29T10:05:00Z"
+  },
+  "complaint_history": {
+    "complaint_id": "ObjectId reference to complaints",
+    "updated_by": "ObjectId reference to citizens, or staff identifier",
+    "status": "Submitted",
+    "remarks": "Complaint submitted through the portal.",
+    "timestamp": "2026-10-29T10:05:00Z"
+  }
+}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin Demo | CivicConnect{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">STAFF WORKSPACE · DEMO ONLY</p><h1>Complaint management</h1><p>Review submitted complaints and add status updates.</p></div>
+<div class="notice warning">Security: this admin page is intentionally unauthenticated for a classroom demonstration. Do not deploy it publicly without authentication and authorization.</div>
+{% if complaints %}
+<div class="table-wrap"><table><thead><tr><th>Complaint</th><th>Citizen</th><th>Category</th><th>Status</th><th>Update status</th></tr></thead><tbody>
+{% for c in complaints %}
+<tr><td><strong>{{ c.title }}</strong><small>{{ c.id_text }}</small><small>{{ c.description }}</small></td><td>{{ c.citizen_name }}</td><td>{{ c.category_name }}</td><td><span class="status {{ c.status|lower|replace(' ', '-') }}">{{ c.status }}</span></td><td><form class="inline-form" method="post"><input type="hidden" name="complaint_id" value="{{ c.id_text }}"><select name="status"><option {% if c.status=='Submitted' %}selected{% endif %}>Submitted</option><option {% if c.status=='In Progress' %}selected{% endif %}>In Progress</option><option {% if c.status=='Resolved' %}selected{% endif %}>Resolved</option><option {% if c.status=='Rejected' %}selected{% endif %}>Rejected</option></select><input name="remarks" placeholder="Update note (optional)"><button class="btn small primary">Save</button></form><a class="text-link" href="{{ url_for('track_complaint', complaint_id=c.id_text) }}">View timeline →</a></td></tr>
+{% endfor %}
+</tbody></table></div>
+{% else %}<div class="empty"><h3>No complaints to manage</h3><p>Submit a complaint from the citizen portal first.</p></div>{% endif %}
+{% endblock %}
