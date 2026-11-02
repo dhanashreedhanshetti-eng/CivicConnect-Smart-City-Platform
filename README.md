@@ -131,6 +131,13 @@ python app.py
 
 Open the local URL displayed in your terminal in a web browser.
 
+### Complaint Registration
+
+Enables citizens to submit civic grievances by providing
+citizen details, issue location, category, priority, and description.
+
+![CivicConnect Complaint Registration](screenshots/complaint-registration.png)
+
 ## 🔄 How It Works
 
 1. Citizens access the CivicConnect platform.
