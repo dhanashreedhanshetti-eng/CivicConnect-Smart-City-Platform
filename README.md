@@ -1,108 +1,172 @@
-# CivicConnect — Citizen Complaints & Grievance Management
+# 🏙️ CivicConnect – Smart City Citizen Grievance Management Platform
 
-A small Flask + MongoDB web portal based on the ER diagram supplied for the MIS assignment.
+A web-based platform that helps citizens report civic issues, track complaints, and enables administrators to manage and resolve grievances efficiently.
 
-## Features
-- Citizen submits a complaint from the website.
-- Backend saves citizen, complaint, and initial history in MongoDB.
-- Complaint categories and departments are stored in their own collections.
-- Complaint ID is returned so the citizen can track status.
-- Demo admin can update status and add remarks.
-- `/api/complaints` returns complaint records as JSON.
+## 📌 Project Overview
 
-## 1. Requirements
-- Python 3.10+
-- MongoDB Community Server running locally, or a MongoDB Atlas connection string.
-- Internet is needed only to load the Google Fonts stylesheet; the site otherwise works without it.
+**CivicConnect** is a Smart City digital platform designed to improve communication between citizens and administrative authorities.
 
-## 2. Install and run (Windows)
-Open Command Prompt or VS Code terminal inside this folder:
+Citizens can submit complaints related to civic issues such as road damage, water supply, waste management, and streetlights. Administrators can review complaints, update their status, and add remarks.
+
+The project demonstrates how digital technologies and database management can support transparent and organized grievance handling.
+
+## ✨ Key Features
+
+- **Complaint Registration:** Citizens can submit complaints through an online form.
+- **Complaint Tracking:** Track submitted complaints using a unique complaint ID.
+- **Citizen Management:** Store and manage citizen information.
+- **Admin Dashboard:** View and manage submitted complaints.
+- **Status Updates:** Update complaint progress and add administrative remarks.
+- **Complaint History:** Maintain a record of complaint status changes.
+- **REST API:** Provides a JSON endpoint for complaint data.
+
+## 🛠️ Technology Stack
+
+| Component | Technology |
+|---|---|
+| Frontend | HTML, CSS |
+| Backend | Python, Flask |
+| Database | MongoDB |
+| Database Connectivity | PyMongo |
+| Environment Configuration | Python dotenv |
+
+## 🏗️ System Architecture
+
+```text
+       CITIZEN / ADMIN
+              |
+              v
+       HTML + CSS Interface
+              |
+              v
+         FLASK BACKEND
+              |
+              v
+          PyMongo
+              |
+              v
+          MONGODB
+              |
+      -------------------
+      |        |        |
+   Citizens Complaints History
+      |        |        |
+   Categories Departments
+```
+
+## 🗄️ Database Design
+
+The project uses MongoDB with the database:
+
+`citizen_grievance_db`
+
+The following collections are implemented:
+
+| Collection | Purpose |
+|---|---|
+| `citizens` | Stores citizen information |
+| `complaints` | Stores complaint details |
+| `categories` | Stores complaint categories |
+| `departments` | Stores department information |
+| `complaint_history` | Maintains complaint status history |
+
+MongoDB ObjectId is used to uniquely identify database documents and complaints.
+
+## ⚙️ Installation and Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/dhanashreedhanshetti-eng/CivicConnect-Smart-City-Platform.git
+```
+
+### 2. Open the Project Folder
+
+```bash
+cd CivicConnect-Smart-City-Platform
+```
+
+### 3. Create a Virtual Environment
 
 ```bash
 python -m venv .venv
+```
+
+### 4. Activate the Virtual Environment
+
+**Windows:**
+
+```powershell
 .venv\Scripts\activate
+```
+
+### 5. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-Start MongoDB Community Server, or create a free MongoDB Atlas database and set `MONGO_URI`.
+### 6. Configure Environment Variables
 
-For local MongoDB, the default URI is already:
-`mongodb://localhost:27017/`
+Refer to `.env.example` and create your local `.env` file with the required configuration.
 
-Then run:
+Do not upload your actual `.env` file or database credentials to GitHub.
+
+### 7. Start MongoDB
+
+Make sure your MongoDB server is running and the connection settings are configured correctly.
+
+### 8. Run the Application
 
 ```bash
 python app.py
 ```
 
-Open `http://127.0.0.1:5000`.
+Open the local URL displayed in your terminal in a web browser.
 
-## 3. Pages
-- `/` — citizen portal home/dashboard
-- `/complaints/new` — file a complaint
-- `/track` — track using complaint ID
-- `/admin` — demo staff status updates
-- `/api/complaints` — JSON API
+## 🔄 How It Works
 
-## 4. MongoDB collections
-- `citizens`: citizen contact/profile information
-- `complaints`: main complaint record; references citizen, category and department by MongoDB ObjectId; embeds location
-- `categories`: category names and descriptions
-- `departments`: department contact information
-- `staff`: staff records (collection included for ERD; authentication/assignment UI can be added)
-- `complaint_assignments`: assignment records (collection included for ERD; assignment UI can be added)
-- `complaint_history`: timeline of status changes
+1. Citizens access the CivicConnect platform.
+2. They submit complaints by selecting a category and entering the required details.
+3. Complaint information is stored in MongoDB.
+4. Citizens track complaints using their unique complaint ID.
+5. Administrators review complaints and update their status.
+6. Complaint history records the changes.
 
-MongoDB automatically creates a collection on first insert. The app seeds categories and departments automatically.
+## 📸 Screenshots
 
-## 5. Sample JSON documents
+Add screenshots of your actual application here to demonstrate its interface.
 
-### citizens
-```json
-{
-  "_id": {"$oid": "665000000000000000000001"},
-  "full_name": "Aditi Patil",
-  "email": "aditi@example.com",
-  "phone": "9876543210",
-  "address": "Shivaji Nagar, Pune",
-  "password_hash": "hashed-password-not-plain-text",
-  "created_at": {"$date": "2026-10-29T10:00:00Z"}
-}
-```
+Suggested screenshots:
+- Home Page / Dashboard
+- Complaint Registration Page
+- Complaint Tracking Page
+- Admin Dashboard
+- MongoDB Collections
 
-### complaints
-```json
-{
-  "_id": {"$oid": "665000000000000000000010"},
-  "citizen_id": {"$oid": "665000000000000000000001"},
-  "category_id": {"$oid": "665000000000000000000002"},
-  "department_id": {"$oid": "665000000000000000000003"},
-  "title": "Pothole near bus stop",
-  "description": "A large pothole is causing traffic issues.",
-  "location": {
-    "address": "Shivaji Nagar bus stop, Pune"
-  },
-  "status": "Submitted",
-  "priority": "High",
-  "created_at": {"$date": "2026-10-29T10:05:00Z"},
-  "updated_at": {"$date": "2026-10-29T10:05:00Z"}
-}
-```
+## 🚀 Future Enhancements
 
-## 6. Important for the assignment
-This is a learning/demo implementation, not a production government portal. Before real deployment:
-- Add secure citizen and staff login, role-based access control, CSRF protection, input validation and rate limiting.
-- Do not expose the admin page publicly without authentication.
-- Use environment secrets; never commit passwords or production MongoDB credentials.
-- Add indexes and backups; use HTTPS and a managed MongoDB deployment.
-- The ERD includes `staff` and `complaint_assignments`; the collections are part of the schema, but the demo currently focuses on citizen complaint submission, tracking, and status history.
+- Secure administrator authentication and role-based access.
+- Email and SMS notifications for complaint updates.
+- Interactive analytics dashboard.
+- Complaint location mapping.
+- AI-based complaint classification and prioritization.
+- Integration with additional database technologies for advanced analysis.
 
-## 7. Useful MongoDB shell operations
-```javascript
-use citizen_grievance_db
-show collections
-db.complaints.find().pretty()
-db.complaints.countDocuments({ status: "Submitted" })
-db.complaints.find({ status: "Resolved" })
-db.complaint_history.find({ complaint_id: ObjectId("PASTE_COMPLAINT_ID") }).sort({ timestamp: 1 })
-```
+## 🔐 Security Note
+
+This project is an academic prototype. The current admin interface does not include production-grade authentication. Additional security measures, including access control, input validation, CSRF protection, and secure deployment configuration, are required before real-world use.
+
+## 🎯 Project Objective
+
+To develop a digital grievance management platform that simplifies complaint registration, improves tracking, and supports efficient civic issue management through database technology.
+
+## 👩‍💻 Developed By
+
+**Dhanashree Dhanshetti**
+
+GitHub: [dhanashreedhanshetti-eng](https://github.com/dhanashreedhanshetti-eng)
+
+---
+
+⭐ If you find this project interesting, consider giving the repository a star!
