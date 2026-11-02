@@ -183,4 +183,19 @@ GitHub: [dhanashreedhanshetti-eng](https://github.com/dhanashreedhanshetti-eng)
 
 ---
 
+---
+
+## 🎥 Project Demo
+
+Watch CivicConnect in action:
+
+[▶️ View CivicConnect Demo](demo/civicconnect-demo.mp4)
+
+---
+
+<p align="center">
+  <b>Building smarter cities through better citizen connectivity.</b>
+</p>
+
+
 ⭐ If you find this project interesting, consider giving the repository a star!
